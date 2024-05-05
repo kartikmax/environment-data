@@ -1,11 +1,16 @@
 import express from "express";
 import mongoose from "mongoose";
+import cors from 'cors'
 
 const app = express();
-
+app.use(cors())
+// const URI = process.env.MONGODB_URI
+const URI = 'mongodb://localhost:27017/dashboardData'
 // Connect to MongoDB
+
+
 mongoose
-  .connect("mongodb://localhost:27017/dashboardData", {
+  .connect(URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -43,7 +48,7 @@ app.get("/",  (req, res) => {
 app.get("/data", async (req, res) => {
   try {
 
-    const limit = parseInt(req.query.limit) ;
+    const limit = parseInt(req.query.limit) ||10 ;
 
     const data = await Data.find().limit(limit);
 

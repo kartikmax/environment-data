@@ -14,9 +14,9 @@ const StyledPaper = styled(Paper)(({ theme, backgroundColor }) => ({
 
 // colors - #009688 ,#9c27b0 , #ec407a #03a9f4
 
-function CounterWidget({ children, number, title, backgroundColor }) {
+function CounterWidget({ children, number, title, backgroundcolor }) {
   return (
-    <StyledPaper backgroundColor={backgroundColor}>
+    <StyledPaper backgroundColor={backgroundcolor}>
       <Grid container justifyContent="space-between">
         <Grid item xs={8}>
           <Typography textAlign="start" variant="h4">
