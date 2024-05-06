@@ -38,19 +38,19 @@ import { tidy, summarize, deviation } from "@tidyjs/tidy";
 const counterData1 = {
   intentsity: {
     number: "N.A",
-    title: "Total Intensity",
+    title: "Intensity",
     backgroundColor: "#009688",
     icon: <SpeedIcon sx={{ fontSize: 55 }} />,
   },
   likelihood: {
     number: "N.A",
-    title: "Total Likelihood",
+    title: "Likelihood",
     backgroundColor: "#ec407a",
     icon: <ThumbUpIcon sx={{ fontSize: 55 }} />,
   },
   relevance: {
     number: "N.A",
-    title: "Total Relevance",
+    title: "Relevance",
     backgroundColor: "#9c27b0",
     icon: <BorderColorIcon sx={{ fontSize: 55 }} />,
   },
@@ -65,7 +65,7 @@ const counterData1 = {
 function Home() {
   const [counterData, setCounterData] = useState(counterData1);
 
-  const [dataLimit, setDataLimit] = useState(5);
+  const [dataLimit, setDataLimit] = useState(100);
   const [sector, setSector] = useState("Energy");
   const [sectorData, setSectorData] = useState([6, 6, 6, 6, 16]);
   const [sectorDataLabels, setSectorDataLabels] = useState([
@@ -118,7 +118,7 @@ function Home() {
     };
 
     fetchData();
-  }, [dataLimit]);
+  }, [dataLimit,sector]);
 
   useEffect(() => {
     const fetchDataIntensity = async () => {
@@ -138,14 +138,14 @@ function Home() {
   }, [dataLimit, sector]);
 
   const handleChange = (event) => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
 
     setDataLimit(event.target.value);
-    console.log(dataLimit);
+    // console.log(dataLimit);
   };
 
   const handleChangeIntensity = (event) => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     setSector(event.target.value);
   };
 

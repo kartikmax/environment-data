@@ -1,34 +1,10 @@
-import ListItemIcon from "@mui/material/ListItemIcon";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-// import {MailIcon} from '@mui/icons-material'
-import {
-  Card,
-  Grid,
-  CardContent,
-  CardMedia,
-  CardActions,
-  Button,
-  Drawer,
-  AppBar,
-  CssBaseline,
-  Toolbar,
-  List,
-  Typography,
-  Divider,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  Box,
-} from "@mui/material";
-import { BarChart, PieChart } from "@mui/x-charts";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { AppBar, CssBaseline, Toolbar, Typography } from "@mui/material";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Charts from "./pages/Charts";
 import Data from "./pages/Data";
 import Sidebar from "./components/Sidebar";
 
-const drawerWidth = 240;
 
 export default function App() {
   return (
