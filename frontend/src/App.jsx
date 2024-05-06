@@ -41,7 +41,7 @@ export default function App() {
         >
           <Toolbar>
             <Typography variant="h6" noWrap component="div">
-              Livlihood Dashboard
+              Livelihood Dashboard
             </Typography>
           </Toolbar>
         </AppBar>

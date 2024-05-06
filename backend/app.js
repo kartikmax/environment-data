@@ -1,13 +1,12 @@
 import express from "express";
 import mongoose from "mongoose";
-import cors from 'cors'
+import cors from "cors";
 
 const app = express();
-app.use(cors())
+app.use(cors());
 // const URI = process.env.MONGODB_URI
-const URI = 'mongodb://localhost:27017/dashboardData'
+const URI = "mongodb://localhost:27017/dashboardData";
 // Connect to MongoDB
-
 
 mongoose
   .connect(URI, {
@@ -41,17 +40,26 @@ const Data = mongoose.model("Data", dataSchema, "chartData");
 
 // Define a route to fetch data from MongoDB
 
-app.get("/",  (req, res) => {
-  res.send('hello world')
+app.get("/", (req, res) => {
+  res.send("hello world");
 });
 
 app.get("/data", async (req, res) => {
   try {
-
-    const limit = parseInt(req.query.limit) ||10 ;
-
+    const limit = parseInt(req.query.limit) || 10;
     const data = await Data.find().limit(limit);
+    res.json(data);
+  } catch (err) {
+    console.error("Error fetching data:", err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
+app.get("/sector", async (req, res) => {
+  try {
+    const limit = parseInt(req.query.limit) || 10;
+    const sector = req.query.sector;
+    const data = await Data.find({ sector: sector }).limit(limit);
     res.json(data);
   } catch (err) {
     console.error("Error fetching data:", err);

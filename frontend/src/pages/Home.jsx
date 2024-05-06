@@ -13,8 +13,15 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  colors,
 } from "@mui/material";
-import { BarChart, PieChart, Gauge, SparkLineChart } from "@mui/x-charts";
+import {
+  BarChart,
+  PieChart,
+  Gauge,
+  SparkLineChart,
+  barElementClasses,
+} from "@mui/x-charts";
 import CounterWidget from "../components/CounterWidget";
 import SpeedIcon from "@mui/icons-material/Speed";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
@@ -24,7 +31,7 @@ import { useState } from "react";
 import { BASE_URL } from "../constants";
 import { useEffect } from "react";
 import axios from "axios";
-import { tidy, groupBy, summarize, deviation } from "@tidyjs/tidy";
+import { tidy, summarize, deviation } from "@tidyjs/tidy";
 
 // const BASE_URL = 'http://localhost:3000'
 
@@ -48,7 +55,7 @@ const counterData1 = {
     icon: <BorderColorIcon sx={{ fontSize: 55 }} />,
   },
   counter: {
-    number: 20,
+    number: 5,
     title: "Counter",
     backgroundColor: "#03a9f4",
     icon: <NumbersIcon sx={{ fontSize: 55 }} />,
@@ -58,10 +65,22 @@ const counterData1 = {
 function Home() {
   const [counterData, setCounterData] = useState(counterData1);
 
+  const [dataLimit, setDataLimit] = useState(5);
+  const [sector, setSector] = useState("Energy");
+  const [sectorData, setSectorData] = useState([6, 6, 6, 6, 16]);
+  const [sectorDataLabels, setSectorDataLabels] = useState([
+    "gas",
+    "oil",
+    "consumption",
+    "oil",
+    "oil",
+  ]);
+  // const [intensity,setIntensity] = useState('Energy')
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/data`);
+        const response = await axios.get(`${BASE_URL}/data?limit=${dataLimit}`);
         // console.log(response.data);
         // console.log(
         //   tidy(response.data, summarize({ stdDev: deviation("intensity") }))
@@ -99,10 +118,35 @@ function Home() {
     };
 
     fetchData();
-  }, []);
+  }, [dataLimit]);
+
+  useEffect(() => {
+    const fetchDataIntensity = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/sector`, {
+          params: { sector, limit: dataLimit },
+        });
+        // console.log(response.data.map((x) => x.topic));
+        setSectorData(response.data.map((x) => x.intensity));
+        setSectorDataLabels(response.data.map((x) => x.topic));
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
+    fetchDataIntensity();
+  }, [dataLimit, sector]);
 
   const handleChange = (event) => {
     console.log(event.target.value);
+
+    setDataLimit(event.target.value);
+    console.log(dataLimit);
+  };
+
+  const handleChangeIntensity = (event) => {
+    console.log(event.target.value);
+    setSector(event.target.value);
   };
 
   return (
@@ -120,7 +164,7 @@ function Home() {
             return (
               <Grid item xs={2.5} key={index}>
                 <CounterWidget
-                  number={data.number}
+                  number={data.title === "Counter" ? dataLimit : data.number}
                   title={data.title}
                   backgroundcolor={data.backgroundColor}
                 >
@@ -131,64 +175,97 @@ function Home() {
           })}
         </Grid>
 
-        <Box sx={{ maxWidth: 200 }}>
+        <Stack direction="row" sx={{ maxWidth: 500 }} gap={4}>
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Age</InputLabel>
+            <InputLabel id="demo-simple-select-label">Data Input</InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
               // value={age}
-              label="Age"
+              label="DataInput"
               onChange={handleChange}
             >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              {[10, 20, 50, 100, 200, 500, 1000].map((x, index) => {
+                return (
+                  <MenuItem key={index} value={x}>
+                    {x}
+                  </MenuItem>
+                );
+              })}
             </Select>
           </FormControl>
-        </Box>
+          <FormControl fullWidth>
+            <InputLabel>Sector Input</InputLabel>
+            <Select
+              // value={age}
+              label="IntensityInput"
+              onChange={handleChangeIntensity}
+            >
+              {[
+                "Energy",
+                "Retail",
+                "Manufacturing",
+                "Financial services",
+                "Government",
+                "Information Technology",
+                "Security",
+              ].map((x, index) => {
+                return (
+                  <MenuItem key={index} value={x}>
+                    {x}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+        </Stack>
         <Grid container xs={6} item justifyContent="space-between">
           <Grid item xs={6.5}>
             <Card>
-              <CardContent>Bar chart</CardContent>
-              <CardMedia>
-                <BarChart
-                  series={[
-                    { data: [35, 44, 24, 34] },
-                    { data: [51, 6, 49, 30] },
-                  ]}
-                  height={290}
-                  width={500}
-                  xAxis={[
-                    { data: ["Q1", "Q2", "Q3", "Q4"], scaleType: "band" },
-                  ]}
-                  margin={{ top: 10, bottom: 30, left: 40, right: 10 }}
-                />
-              </CardMedia>
+              <CardContent>Sector wise Intensities </CardContent>
+              <BarChart
+                height={290}
+                margin={{ top: 10, bottom: 30, left: 50, right: 10 }}
+                xAxis={[{ data: sectorDataLabels, scaleType: "band" }]}
+                series={[{ data: sectorData, label: "Intensity" }]}
+                width={750}
+              />
             </Card>
           </Grid>
           <Grid item xs={5}>
             <Card
               style={{
+                alignItems: "center",
                 display: "flex",
+                height: 350,
                 justifyContent: "space-around",
                 padding: 20,
               }}
             >
-              <CardContent>Pie Chart</CardContent>
+              <CardContent> Variables</CardContent>
 
               <PieChart
                 series={[
                   {
                     data: [
-                      { id: 0, value: 10, label: "series A" },
-                      { id: 1, value: 15, label: "series B" },
-                      { id: 2, value: 20, label: "series C" },
+                      {
+                        id: 0,
+                        value: counterData.intentsity.number,
+                        label: "Intensity",
+                      },
+                      {
+                        id: 1,
+                        value: counterData.likelihood.number,
+                        label: "Likelihood",
+                      },
+                      {
+                        id: 2,
+                        value: counterData.relevance.number,
+                        label: "Relevance",
+                      },
                     ],
                   },
                 ]}
                 width={400}
-                height={290}
+                height={250}
                 // margin={{ top: 10, bottom: 30, left: 40, right: 10 }}
               />
             </Card>
@@ -204,7 +281,7 @@ function Home() {
                 justifyContent="space-between"
                 spacing={3}
               >
-                <Gauge width={100} height={100} value={60} />
+                <Gauge width={100} height={100} value={dataLimit / 10} />
                 <Typography variant="h4">Tasks</Typography>
                 <Typography variant="subtitle">Counts</Typography>
               </Stack>
@@ -227,6 +304,7 @@ function Home() {
                     data={[1, 4, 2, 5, 7, 2, 4, 6]}
                     height={100}
                     width={300}
+
                     // colors="#ac89af"
                   />
                 </Box>
