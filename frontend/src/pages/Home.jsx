@@ -64,7 +64,7 @@ const counterData1 = {
 
 function Home() {
   const [counterData, setCounterData] = useState(counterData1);
-
+  // const [connection,setConnection ] = useState(false)
   const [dataLimit, setDataLimit] = useState(100);
   const [sector, setSector] = useState("Energy");
   const [sectorData, setSectorData] = useState([6, 6, 6, 6, 16]);

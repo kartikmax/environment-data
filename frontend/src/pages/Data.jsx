@@ -104,7 +104,6 @@ function Data() {
                 </Stack>
               </Stack>
             </Item>
-            {/* <Item> 2 </Item> */}
           </Grid>
           <Grid item xs={7}>
             <Item ht={400}>
@@ -113,8 +112,8 @@ function Data() {
                 width={600}
                 height={400}
                 series={[
-                  { data: pData, label: "pv" },
-                  { data: uData, label: "uv" },
+                  { data: pData, label: "Start Year" },
+                  { data: uData, label: "End Year" },
                 ]}
                 xAxis={[{ scaleType: "point", data: xLabels }]}
               />{" "}

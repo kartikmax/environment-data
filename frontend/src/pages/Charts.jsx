@@ -1,6 +1,5 @@
-import * as React from "react";
 import { ScatterChart } from "@mui/x-charts/ScatterChart";
-import { Grid } from "@mui/material";
+import { Card, Grid } from "@mui/material";
 
 const data = [
   {
@@ -168,8 +167,8 @@ const data = [
 
 export default function Charts() {
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={7}>
+    <Grid container gap={2}>
+      <Grid item xs={7} component={Card}>
         <ScatterChart
           width={1000}
           height={500}
@@ -185,7 +184,7 @@ export default function Charts() {
           ]}
         />
       </Grid>
-      <Grid item xs={3}></Grid>
+      <Grid item xs={4} component={Card}></Grid>
     </Grid>
   );
 }
