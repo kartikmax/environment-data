@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import Charts from "./pages/Charts";
 import Data from "./pages/Data";
 import Sidebar from "./components/Sidebar";
-
+import Country from "./pages/Country";
 
 export default function App() {
   return (
@@ -37,6 +37,7 @@ export default function App() {
             <Route path="" element={<Home />} />
             <Route path="/charts" element={<Charts />} />
             <Route path="/data" element={<Data />} />
+            <Route path="/country" element={<Country />} />
           </Routes>
         </main>
       </div>
