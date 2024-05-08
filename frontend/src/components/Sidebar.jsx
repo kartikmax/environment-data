@@ -48,29 +48,6 @@ function Sidebar() {
                 </ListItemButton>
               </ListItem>
             </StyledLink>
-            <StyledLink to="/charts">
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <MailIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Charts" />
-                </ListItemButton>
-              </ListItem>
-            </StyledLink>
-          </List>
-          <Divider />
-          <List>
-            <StyledLink to="/data">
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <InboxIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Data" />
-                </ListItemButton>
-              </ListItem>
-            </StyledLink>
             <StyledLink to="/country">
               <ListItem disablePadding>
                 <ListItemButton>
@@ -78,6 +55,29 @@ function Sidebar() {
                     <MailIcon />
                   </ListItemIcon>
                   <ListItemText primary="Country" />
+                </ListItemButton>
+              </ListItem>
+            </StyledLink>
+          </List>
+          <Divider />
+          <List>
+            <StyledLink to="/charts">
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <InboxIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Chart" />
+                </ListItemButton>
+              </ListItem>
+            </StyledLink>
+            <StyledLink to="/data">
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <MailIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Data" />
                 </ListItemButton>
               </ListItem>
             </StyledLink>
