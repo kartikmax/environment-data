@@ -11,28 +11,14 @@ import {
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { BASE_URL } from "../constants";
+import { BASE_URL,regions } from "../constants";
 
 export default function Charts() {
-  const regions = [
-    "Northern America",
-    "World",
-    "Southern Asia",
-    "Western Asia",
-    "South America",
-    "Eastern Asia",
-    "Northern Europe",
-    "Northern Africa",
-    "Central Africa",
-    "Europe",
-    "Eastern Africa",
-    "Africa",
-  ];
-
+  
   const [region, setRegion] = useState("World");
   const [data, setData] = useState([
     {
-      _id: "6635f61d94a3daa3e7c1d468",
+      id: "6635f61d94a3daa3e7c1d468",
       end_year: "",
       intensity: 6,
       sector: "",
@@ -64,10 +50,7 @@ export default function Charts() {
         const response = await axios.get(`${BASE_URL}/region`, {
           params: { region },
         });
-        // console.log(response.data.map((x) => x.topic));
-        // setData()
-
-        // console.log(response.data);
+        console.log(response.data);
         setData(response.data);
       } catch (error) {
         console.log(error.message);
@@ -81,14 +64,14 @@ export default function Charts() {
     <Grid container gap={2}>
       <Grid item xs={7} component={Card}>
         <LineChart
-          width={1000}
+          width={900}
           height={500}
-         series ={[
-            { data: data.intensity, label: "intensity" },
-            { data: data.likelihood, label: "likelihood" },
-            { data: data.relevance, label: "relevance" },
+          series={[
+            { data: data.map((x) => x.intensity), label: "intensity" },
+            { data: data.map((x) => x.likelihood), label: "likelihood" },
+            { data: data.map((x) => x.relevance), label: "relevance" },
           ]}
-          xAxis={[{ scaleType: "point", data: data.pestle }]}
+          xAxis={[{ scaleType: "point", data: data.map((x) => x.pestle) }]}
         />
       </Grid>
       <Grid item xs={4} component={Card} sx={{ padding: 5 }}>

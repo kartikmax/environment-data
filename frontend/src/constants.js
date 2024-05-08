@@ -403,3 +403,18 @@ export const Countries = [
   "Zambia",
   "Zimbabwe",
 ];
+
+export const regions = [
+  "Northern America",
+  "World",
+  "Southern Asia",
+  "Western Asia",
+  "South America",
+  "Eastern Asia",
+  "Northern Europe",
+  "Northern Africa",
+  "Central Africa",
+  "Europe",
+  "Eastern Africa",
+  "Africa",
+];
