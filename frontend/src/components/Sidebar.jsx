@@ -71,7 +71,7 @@ function Sidebar() {
                 </ListItemButton>
               </ListItem>
             </StyledLink>
-            <StyledLink to="/data">
+            {/* <StyledLink to="/data">
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
@@ -80,7 +80,7 @@ function Sidebar() {
                   <ListItemText primary="Data" />
                 </ListItemButton>
               </ListItem>
-            </StyledLink>
+            </StyledLink> */}
           </List>
         </div>
       </Drawer>

@@ -1,190 +1,116 @@
-import { ScatterChart } from "@mui/x-charts/ScatterChart";
-import { Card, Grid } from "@mui/material";
-
-const data = [
-  {
-    id: "data-0",
-    x1: 329.39,
-    x2: 391.29,
-    y1: 443.28,
-    y2: 153.9,
-  },
-  {
-    id: "data-1",
-    x1: 96.94,
-    x2: 139.6,
-    y1: 110.5,
-    y2: 217.8,
-  },
-  {
-    id: "data-2",
-    x1: 336.35,
-    x2: 282.34,
-    y1: 175.23,
-    y2: 286.32,
-  },
-  {
-    id: "data-3",
-    x1: 159.44,
-    x2: 384.85,
-    y1: 195.97,
-    y2: 325.12,
-  },
-  {
-    id: "data-4",
-    x1: 188.86,
-    x2: 182.27,
-    y1: 351.77,
-    y2: 144.58,
-  },
-  {
-    id: "data-5",
-    x1: 143.86,
-    x2: 360.22,
-    y1: 43.253,
-    y2: 146.51,
-  },
-  {
-    id: "data-6",
-    x1: 202.02,
-    x2: 209.5,
-    y1: 376.34,
-    y2: 309.69,
-  },
-  {
-    id: "data-7",
-    x1: 384.41,
-    x2: 258.93,
-    y1: 31.514,
-    y2: 236.38,
-  },
-  {
-    id: "data-8",
-    x1: 256.76,
-    x2: 70.571,
-    y1: 231.31,
-    y2: 440.72,
-  },
-  {
-    id: "data-9",
-    x1: 143.79,
-    x2: 419.02,
-    y1: 108.04,
-    y2: 20.29,
-  },
-  {
-    id: "data-10",
-    x1: 103.48,
-    x2: 15.886,
-    y1: 321.77,
-    y2: 484.17,
-  },
-  {
-    id: "data-11",
-    x1: 272.39,
-    x2: 189.03,
-    y1: 120.18,
-    y2: 54.962,
-  },
-  {
-    id: "data-12",
-    x1: 23.57,
-    x2: 456.4,
-    y1: 366.2,
-    y2: 418.5,
-  },
-  {
-    id: "data-13",
-    x1: 219.73,
-    x2: 235.96,
-    y1: 451.45,
-    y2: 181.32,
-  },
-  {
-    id: "data-14",
-    x1: 54.99,
-    x2: 434.5,
-    y1: 294.8,
-    y2: 440.9,
-  },
-  {
-    id: "data-15",
-    x1: 134.13,
-    x2: 383.8,
-    y1: 121.83,
-    y2: 273.52,
-  },
-  {
-    id: "data-16",
-    x1: 12.7,
-    x2: 270.8,
-    y1: 287.7,
-    y2: 346.7,
-  },
-  {
-    id: "data-17",
-    x1: 176.51,
-    x2: 119.17,
-    y1: 134.06,
-    y2: 74.528,
-  },
-  {
-    id: "data-18",
-    x1: 65.05,
-    x2: 78.93,
-    y1: 104.5,
-    y2: 150.9,
-  },
-  {
-    id: "data-19",
-    x1: 162.25,
-    x2: 63.707,
-    y1: 413.07,
-    y2: 26.483,
-  },
-  {
-    id: "data-20",
-    x1: 68.88,
-    x2: 150.8,
-    y1: 74.68,
-    y2: 333.2,
-  },
-  {
-    id: "data-21",
-    x1: 95.29,
-    x2: 329.1,
-    y1: 360.6,
-    y2: 422.0,
-  },
-  {
-    id: "data-22",
-    x1: 390.62,
-    x2: 10.01,
-    y1: 330.72,
-    y2: 488.06,
-  },
-];
+import { LineChart } from "@mui/x-charts/LineChart";
+import {
+  Card,
+  Grid,
+  Typography,
+  MenuItem,
+  Select,
+  Box,
+  InputLabel,
+  FormControl,
+} from "@mui/material";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { BASE_URL } from "../constants";
 
 export default function Charts() {
+  const regions = [
+    "Northern America",
+    "World",
+    "Southern Asia",
+    "Western Asia",
+    "South America",
+    "Eastern Asia",
+    "Northern Europe",
+    "Northern Africa",
+    "Central Africa",
+    "Europe",
+    "Eastern Africa",
+    "Africa",
+  ];
+
+  const [region, setRegion] = useState("World");
+  const [data, setData] = useState([
+    {
+      _id: "6635f61d94a3daa3e7c1d468",
+      end_year: "",
+      intensity: 6,
+      sector: "",
+      topic: "market",
+      insight: "N-Hexane Market Hit at a CAGR of 5% by 2024 - PMR Report",
+      url: "http://www.sbwire.com/press-releases/n-hexane-market-hit-at-a-cagr-of-5-by-2024-pmr-report-761520.htm",
+      region: "World",
+      start_year: "",
+      impact: "",
+      added: "January, 19 2017 00:55:54",
+      published: "January, 18 2017 00:00:00",
+      country: "",
+      relevance: 2,
+      pestle: "Economic",
+      source: "SBWire",
+      title:
+        "Polymerization will remain top 3 end-users in global n-Hexane Market.",
+      likelihood: 3,
+    },
+  ]);
+
+  const handleChangeRegion = (event) => {
+    setRegion(event.target.value);
+  };
+
+  useEffect(() => {
+    const fetchDataIntensity = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/region`, {
+          params: { region },
+        });
+        // console.log(response.data.map((x) => x.topic));
+        // setData()
+
+        // console.log(response.data);
+        setData(response.data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
+    fetchDataIntensity();
+  }, [region]);
+
   return (
     <Grid container gap={2}>
       <Grid item xs={7} component={Card}>
-        <ScatterChart
+        <LineChart
           width={1000}
           height={500}
-          series={[
-            {
-              label: "Series A",
-              data: data.map((v) => ({ x: v.x1, y: v.y1, id: v.id })),
-            },
-            {
-              label: "Series B",
-              data: data.map((v) => ({ x: v.x1, y: v.y2, id: v.id })),
-            },
+         series ={[
+            { data: data.intensity, label: "intensity" },
+            { data: data.likelihood, label: "likelihood" },
+            { data: data.relevance, label: "relevance" },
           ]}
+          xAxis={[{ scaleType: "point", data: data.pestle }]}
         />
       </Grid>
-      <Grid item xs={4} component={Card}></Grid>
+      <Grid item xs={4} component={Card} sx={{ padding: 5 }}>
+        <Typography variant="body1">
+          You can select any type of region selecting on the select option
+        </Typography>
+        <Box>
+          <InputLabel id="demo-select-small-label">Data Limit </InputLabel>
+          <FormControl sx={{ width: "80%" }}>
+            <Select value={region} onChange={handleChangeRegion} size="small">
+              {regions.map((region, index) => {
+                return (
+                  <MenuItem value={region} key={index}>
+                    {" "}
+                    {region}{" "}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+        </Box>
+      </Grid>
     </Grid>
   );
 }

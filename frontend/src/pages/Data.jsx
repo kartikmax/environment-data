@@ -43,7 +43,9 @@ const xLabels = [
 function Data() {
   return (
     <>
-      <Typography variant="h4"> Data </Typography>
+    
+      <Typography variant="h4">Static Data </Typography>
+      <Typography variant="h4"> coming soon </Typography>
       <Box xs={{ flexGrow: 1 }}>
         <Grid container spacing={4}>
           <Grid item xs={4}>

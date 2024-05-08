@@ -80,6 +80,18 @@ app.get("/country", async (req, res) => {
   }
 });
 
+app.get("/region", async (req, res) => {
+  try {
+    // const limit = parseInt(req.query.limit) || 10;
+    const region = req.query.region;
+    const data = await Data.find({ region });
+    res.json(data);
+  } catch (err) {
+    console.error("Error fetching data:", err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
