@@ -162,7 +162,7 @@ function Home() {
           {Object.keys(counterData).map((key, index) => {
             const data = counterData[key];
             return (
-              <Grid item xs={2.5}  key={index}>
+              <Grid item xs={2.5} key={index}>
                 <CounterWidget
                   number={data.title === "Counter" ? dataLimit : data.number}
                   title={data.title}

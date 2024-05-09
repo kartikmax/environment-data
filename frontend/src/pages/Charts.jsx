@@ -50,7 +50,7 @@ export default function Charts() {
         const response = await axios.get(`${BASE_URL}/region`, {
           params: { region },
         });
-        // console.log(response.data);
+        console.log(response.data);
         setData(response.data);
       } catch (error) {
         console.log(error.message);
@@ -71,7 +71,6 @@ export default function Charts() {
             { data: data.map((x) => x.likelihood), label: "likelihood" },
             { data: data.map((x) => x.relevance), label: "relevance" },
           ]}
-        
           xAxis={[{ scaleType: "point", data: data.map((x) => x.pestle) }]}
         />
       </Grid>

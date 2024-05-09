@@ -18,13 +18,11 @@ import { BASE_URL } from "../constants";
 import { GeoJSONDataOfCountry, Countries } from "../constants";
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import { useState, useEffect } from "react";
-import { DataGrid } from "@mui/x-data-grid";
 
 function Country() {
   const [country, setCountry] = useState("India");
   const [limit, setLimit] = useState(20);
   const [data, setData] = useState([]);
-  const [gridData,setGridData] = useState()
 
   const colDefs = [
     { field: "topic", flex: 1 },
@@ -32,14 +30,6 @@ function Country() {
     { field: "region", flex: 1 },
     { field: "source", flex: 1 },
     { field: "title", flex: 4 },
-  ];
-
-  const columns = [
-    { field: "topic", headerName: "Topic", sortable: true },
-    { field: "country", headerName: "Country", sortable: true },
-    { field: "region", headerName: "Region", sortable: true },
-    { field: "title", headerName: "Title", sortable: true },
-    { field: "source", headerName: "Source", sortable: true },
   ];
 
   const defaultColDef = {
@@ -57,11 +47,11 @@ function Country() {
         const response = await axios.get(`${BASE_URL}/country`, {
           params: { country, limit },
         });
+        // console.log(response.data.map((x) => x.topic));
+        // setData()
+
+        console.log(response.data);
         setData(response.data);
-        // setGridData()
-
-
-
       } catch (error) {
         console.log(error.message);
       }
@@ -148,36 +138,18 @@ function Country() {
           </Grid>
         </Grid>
       </div>
-      <Box sx={{ height: 300, width: "100%" }}>
-        <div
-          className={"ag-theme-quartz"}
-          style={{ width: "100%", height: "100%" }}
-        >
-          <AgGridReact
+      {/* <Box sx={{ height: 400, width: "100%" }}> */}
+      <div
+        className={"ag-theme-quartz"}
+        style={{ width: "100%", height: "100%" }}
+      >
+        <AgGridReact
           rowData={data}
           columnDefs={colDefs}
           defaultColDef={defaultColDef}
         />
-        </div>
-
-        {/* <DataGrid
-        rows={data}
-        columns={columns}
-        getRowId={data}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
-            },
-          },
-          }}
-          
-        pageSizeOptions={[5]}
-        checkboxSelection
-        disableRowSelectionOnClick
-      /> */}
-
-      </Box>
+      </div>
+      {/* </Box> */}
     </>
   );
 }
