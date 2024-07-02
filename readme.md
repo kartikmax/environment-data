@@ -13,4 +13,6 @@ for frontend
 1. cd frontend
 2. npm i
 3. npm run dev
+![image](https://github.com/kartikmax/environment-data/assets/99044706/d7801523-fd48-496d-84b0-d203f40e59d4)
+
 
